@@ -43,7 +43,6 @@ export async function removeMovie(req: Request, res: Response) {
     try {
         const id = req.params.id;
         const movie = await MovieModel.findByIdAndDelete(id);
-        console.log(movie);
         
         if (!movie) {
             return res.status(404).json({ message: "Movie not found" });
@@ -51,6 +50,25 @@ export async function removeMovie(req: Request, res: Response) {
         
         res.status(200).json(movie);
     } catch (e: any) {  
+        Logger.error(e.message);
+        res.status(500).send("Server Error");
+    }
+}
+
+export async function updateMovie(req: Request, res: Response) {
+    try {
+        const id = req.params.id;
+        const data = req.body;
+        const movie = await MovieModel.findById(id);
+
+        if (!movie) {
+            return res.status(404).json({ message: "Movie not found" });
+        }
+
+        await MovieModel.updateOne({_id: id}, data);
+
+        res.status(200).json(data);
+    } catch (e: any) {
         Logger.error(e.message);
         res.status(500).send("Server Error");
     }
