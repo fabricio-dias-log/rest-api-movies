@@ -1,6 +1,6 @@
 import { model, Schema } from "mongoose";
 
-const MovieSchema = new Schema(
+const MovieModel = new Schema(
     {   
         title:{type: String, required: true},
         rating: {type: Number, required: true},
@@ -14,4 +14,4 @@ const MovieSchema = new Schema(
     }
 )
 
-export default model("Movie", MovieSchema);
+export default model("Movie", MovieModel);
