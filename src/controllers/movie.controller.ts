@@ -38,3 +38,20 @@ export async function getAllMovies(req: Request, res: Response) {
         res.status(500).send("Server Error");
     }
 }
+
+export async function removeMovie(req: Request, res: Response) {
+    try {
+        const id = req.params.id;
+        const movie = await MovieModel.findByIdAndDelete(id);
+        console.log(movie);
+        
+        if (!movie) {
+            return res.status(404).json({ message: "Movie not found" });
+        }   
+        
+        res.status(200).json(movie);
+    } catch (e: any) {  
+        Logger.error(e.message);
+        res.status(500).send("Server Error");
+    }
+}
