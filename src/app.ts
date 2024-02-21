@@ -4,6 +4,7 @@ import express from 'express';
 import config from 'config';
 import router from './router';
 import db from '../config/db';
+import Logger from '../config/logger';
 
 const app = express();
 const port = config.get<number>('port');
@@ -15,7 +16,7 @@ app.use(router);
 
 app.listen(port, async() => {
     await db();
-    console.log(`Server is running on port ${port}`);
+    Logger.info(`Server is running on port ${port}`);
 });
 
 
