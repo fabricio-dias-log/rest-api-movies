@@ -1,5 +1,5 @@
 import { Router, Request, Response } from 'express';
-import { createMovie } from './controllers/movie.controller';
+import { createMovie, findMovieById, getAllMovies } from './controllers/movie.controller';
 
 // middleware
 import { validate } from './middleware/validation.middleware';
@@ -12,3 +12,5 @@ export default router
         res.status(200).send('Hello World');
     })
     .post('/movie', movieCreateValidation(), validate, createMovie) 
+    .get('/movie/:id', findMovieById) 
+    .get('/movie', getAllMovies) 
